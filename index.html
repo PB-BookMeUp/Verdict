@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verdict: one tap fact check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9EEF4; --ink:#17203A; --soft:#56607A; --bubble:#FFFFFF; --bubble-ink:#17203A;
+  --false:#C8322E; --false-bg:#FCE6E4; --btn:#17203A; --btn-ink:#FFF4B8; --line:#C9D2DE;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121828; --ink:#EEF2F8; --soft:#A3ADC2; --bubble:#1E2740; --bubble-ink:#EEF2F8;
+  --false:#FF7A72; --false-bg:#3A1E24; --btn:#FFF4B8; --btn-ink:#17203A; --line:#2C3754;}}
+:root[data-theme="dark"]{
+  --bg:#121828; --ink:#EEF2F8; --soft:#A3ADC2; --bubble:#1E2740; --bubble-ink:#EEF2F8;
+  --false:#FF7A72; --false-bg:#3A1E24; --btn:#FFF4B8; --btn-ink:#17203A; --line:#2C3754;}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.5}
+main{max-width:34rem;margin:0 auto;padding:2.5rem 1.25rem 3rem}
+h1{font-family:"Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif;font-weight:800;
+  font-size:clamp(2.1rem,8vw,3.1rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 .9rem}
+h1 span{display:block}
+.sub{color:var(--soft);margin:0 0 2rem;max-width:28rem}
+.demo{position:relative;margin:0 0 2.25rem;padding-bottom:3.4rem}
+.bubble{background:var(--bubble);color:var(--bubble-ink);border-radius:4px 18px 18px 18px;
+  padding:.85rem 1rem 1rem;max-width:22rem;border:1px solid var(--line)}
+.fwd{display:flex;align-items:center;gap:.35rem;color:var(--soft);font-size:.85rem;font-style:italic;margin-bottom:.35rem}
+.fwd svg{width:16px;height:16px;flex:none}
+.bubble p{margin:0}
+.verdict{position:absolute;left:clamp(1.5rem,18%,6rem);bottom:0;background:var(--false-bg);color:var(--false);
+  border:2px solid var(--false);border-radius:10px;padding:.55rem .85rem;max-width:20rem;
+  font-size:.95rem;line-height:1.35;transform:rotate(-2deg)}
+.verdict b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.15rem;margin-right:.35rem}
+@media (prefers-reduced-motion:no-preference){
+  .verdict{animation:land .5s cubic-bezier(.2,1.4,.4,1) .7s both}
+  @keyframes land{from{opacity:0;transform:translateY(14px) rotate(-6deg) scale(.9)}to{opacity:1;transform:rotate(-2deg)}}
+}
+button,input{font:inherit}
+.cta{display:block;width:100%;max-width:24rem;border:0;border-radius:999px;background:var(--btn);color:var(--btn-ink);
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.2rem;padding:1rem 1.5rem;cursor:pointer}
+.cta:hover{filter:brightness(1.12)}
+:focus-visible{outline:3px solid var(--false);outline-offset:3px}
+#signup[hidden],#done[hidden],#start[hidden]{display:none}
+#signup h2,#done h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.5rem;line-height:1.15;margin:0 0 1rem}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;max-width:28rem}
+.row input{flex:1 1 14rem;min-width:0;border:2px solid var(--line);border-radius:999px;background:var(--bubble);
+  color:var(--ink);padding:.85rem 1.1rem}
+.row .cta{width:auto;flex:0 0 auto;font-size:1.05rem;padding:.85rem 1.4rem}
+.err{color:var(--false);font-size:.95rem;min-height:1.4em;margin:.5rem 0 0}
+</style>
+</head>
+<body>
+<main>
+  <h1><span>See something sketchy?</span><span>Tap share, get a verdict.</span><span>No searching.</span></h1>
+  <p class="sub">Works on reels, posts and forwarded messages.</p>
+
+  <div class="demo" aria-hidden="true">
+    <div class="bubble">
+      <div class="fwd"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l5 4-5 4"/><path d="M14 7H7a5 5 0 0 0-5 5v1"/></svg>Forwarded many times</div>
+      <p>Banks will be closed for 10 days starting Monday. Withdraw your cash now and share with everyone!!</p>
+    </div>
+    <div class="verdict"><b>False.</b>No bank or regulator has announced this.</div>
+  </div>
+
+  <div id="start">
+    <button class="cta" id="getBtn" type="button">Get the share button</button>
+  </div>
+
+  <div id="signup" hidden>
+    <h2>Not live yet. Want it first? Leave your email.</h2>
+    <div class="row">
+      <label for="email" style="position:absolute;left:-9999px">Email</label>
+      <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+      <button class="cta" id="joinBtn" type="button">Leave email</button>
+    </div>
+    <p class="err" id="err" role="alert"></p>
+  </div>
+
+  <div id="done" hidden>
+    <h2>You're on the list. We'll email you when it's live.</h2>
+  </div>
+</main>
+<script>
+// Paste your Apps Script web app URL between the quotes (Step 4 of the setup).
+var ENDPOINT = "https://script.google.com/macros/s/AKfycbyywFh14EK2fB-LWutt_sytBbRSfbpCVtIDF1MWWSMqnWlpOnFEA6GZvBUnVFXCnrAAHA/exec";
+
+(function(){
+  var params = new URLSearchParams(location.search);
+  var isTest = params.has("test");
+  var src = params.get("src") || params.get("utm_source") || "";
+  var sid = Math.random().toString(36).slice(2,10) + Date.now().toString(36);
+  var vid = null;
+  try{ vid = localStorage.getItem("fc_vid"); if(!vid){ vid = "v" + Math.random().toString(36).slice(2,12); localStorage.setItem("fc_vid", vid); } }catch(e){ vid = "nostore-" + sid; }
+
+  function log(type, extra){
+    if(!ENDPOINT || ENDPOINT.indexOf("http") !== 0) return;
+    var ev = {type:type, sid:sid, vid:vid, src:src, test:isTest, ref:document.referrer || "", ua:navigator.userAgent};
+    if(extra){ for(var k in extra) ev[k] = extra[k]; }
+    try{
+      fetch(ENDPOINT, {method:"POST", mode:"no-cors", keepalive:true,
+        headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(ev)});
+    }catch(e){}
+  }
+
+  log("visit");
+
+  document.getElementById("getBtn").addEventListener("click", function(){
+    log("click");
+    document.getElementById("start").hidden = true;
+    document.getElementById("signup").hidden = false;
+    document.getElementById("email").focus();
+  });
+
+  function join(){
+    var v = document.getElementById("email").value.trim();
+    var err = document.getElementById("err");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ err.textContent = "Enter an email address like name@example.com."; return; }
+    err.textContent = "";
+    log("email", {email:v});
+    document.getElementById("signup").hidden = true;
+    document.getElementById("done").hidden = false;
+  }
+  document.getElementById("joinBtn").addEventListener("click", join);
+  document.getElementById("email").addEventListener("keydown", function(e){ if(e.key === "Enter") join(); });
+})();
+</script>
+</body>
+</html>
